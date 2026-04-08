@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>VKMJ Studio — Where Every Vase Tells A Story</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="toast"></div>
+
+		<nav class="navbar" id="navbar">
+			<div class="nav-wrap">
+				<a class="nav-logo" href="#" onclick="showPage('home')">
+					<span class="nav-logo-mark">V</span>
+					VKMJ<span> Studio</span>
+				</a>
+				<ul class="nav-links" id="navLinks">
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('home');
+								closeNav();
+							"
+							data-page="home"
+							>Home</a
+						>
+					</li>
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('shop');
+								closeNav();
+							"
+							data-page="shop"
+							>Shop</a
+						>
+					</li>
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('about');
+								closeNav();
+							"
+							data-page="about"
+							>About</a
+						>
+					</li>
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('reviews');
+								closeNav();
+							"
+							data-page="reviews"
+							>Reviews</a
+						>
+					</li>
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('contact');
+								closeNav();
+							"
+							data-page="contact"
+							>Contact</a
+						>
+					</li>
+					<li>
+						<a
+							href="#"
+							onclick="
+								showPage('tracking');
+								closeNav();
+							"
+							data-page="tracking"
+							>Track Order</a
+						>
+					</li>
+				</ul>
+				<div class="nav-right">
+					<div class="search-wrap">
+						<input
+							type="text"
+							id="searchInput"
+							placeholder="Search vases…"
+							oninput="handleSearch(this.value)"
+						/>
+						<svg
+							width="13"
+							height="13"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.5"
+						>
+							<circle cx="11" cy="11" r="8" />
+							<path d="M21 21l-4.35-4.35" />
+						</svg>
+					</div>
+					<button class="ni-btn" onclick="openCart()" title="Basket">
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+						>
+							<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+							<line x1="3" y1="6" x2="21" y2="6" />
+							<path d="M16 10a4 4 0 01-8 0" />
+						</svg>
+						<span class="basket-count" id="cartCount">0</span>
+					</button>
+					<button
+						class="ni-btn"
+						onclick="toggleAccountMenu()"
+						id="acctBtn"
+						title="Account"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.8"
+						>
+							<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+							<circle cx="12" cy="7" r="4" />
+						</svg>
+					</button>
+					<div
+						class="acct-menu hidden"
+						id="acctMenu"
+						style="
+							position: absolute;
+							top: calc(100% + 10px);
+							right: 0;
+							background: white;
+							border: 1px solid var(--border-2);
+							border-radius: var(--r-lg);
+							box-shadow: var(--shadow-lg);
+							min-width: 190px;
+							overflow: hidden;
+							z-index: 200;
+						"
+					>
+						<div id="acctMenuContent"></div>
+					</div>
+					<button class="burger" onclick="toggleNav()" id="burgerBtn">
+						<span></span><span></span><span></span>
+					</button>
+				</div>
+			</div>
+		</nav>
+		<div class="mob-overlay" id="mobOverlay" onclick="closeNav()"></div>
+
+		<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+		<div class="cart-sidebar" id="cartSidebar">
+			<div class="cs-head">
+				<h3>Your Basket</h3>
+				<button class="cs-close" onclick="closeCart()">✕</button>
+			</div>
+			<div class="cs-items" id="cartItems"></div>
+			<div class="cs-foot">
+				<div class="cs-total">
+					<span>Total</span><span id="cartTotal">₱0</span>
+				</div>
+				<button class="btn-primary full" onclick="goCheckout()">
+					Proceed to Checkout →
+				</button>
+			</div>
+		</div>
+
+		<div class="modal-overlay hidden" id="productModal">
+			<div class="modal">
+				<button class="modal-close" onclick="closeModal()">✕</button>
+				<div id="modalContent"></div>
+			</div>
+		</div>
+
+		<div id="page-home" class="page active">
+			<section class="hero">
+				<div class="hero-left">
+					<span class="hero-eyebrow">Where Every Vase Tells A Story</span>
+					<h1 class="hero-title">
+						Artistry<br />Meets<br /><em>Everyday</em><br />Living.
+					</h1>
+					<p class="hero-sub">
+						Thoughtfully curated vases that transform ordinary spaces into
+						something meaningful — from crystal luxury to eco-conscious designs.
+					</p>
+					<div class="hero-actions">
+						<button class="btn-primary" onclick="showPage('shop')">
+							Explore the Collection
+						</button>
+						<button class="btn-outline" onclick="showPage('about')">
+							Our Story
+						</button>
+					</div>
+					<div class="hero-stat">
+						<div class="hs-item">
+							<span class="hs-num">6</span
+							><span class="hs-label">Unique Vases</span>
+						</div>
+						<div class="hs-div"></div>
+						<div class="hs-item">
+							<span class="hs-num">PH</span
+							><span class="hs-label">Philippines</span>
+						</div>
+						<div class="hs-div"></div>
+						<div class="hs-item">
+							<span class="hs-num">100%</span
+							><span class="hs-label">Authentic</span>
+						</div>
+					</div>
+				</div>
+				<div class="hero-right">
+					<img
+						src="1-1-1.png"
+						alt="Crystal Luxe Vase"
+						onerror="this.parentElement.style.background = 'var(--cream-3)'"
+					/>
+					<div class="hero-right-overlay"></div>
+					<div class="hero-float">
+						<div class="hf-dot"></div>
+						<div class="hf-text">
+							<span class="hf-label">Featured Piece</span>
+							<span class="hf-val">Crystal Luxe Cut Vase</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div class="marquee">
+				<div class="mq-inner">
+					<span>Crystal Luxe</span><span class="mq-sep">·</span>
+					<span>Bamboo Essence</span><span class="mq-sep">·</span>
+					<span>Abstract Flow</span><span class="mq-sep">·</span>
+					<span>GlowMist LED</span><span class="mq-sep">·</span>
+					<span>Ocean Shell</span><span class="mq-sep">·</span>
+					<span>EcoGlass Reborn</span><span class="mq-sep">·</span>
+					<span>VKMJ Studio</span><span class="mq-sep">·</span>
+					<span>Crystal Luxe</span><span class="mq-sep">·</span>
+					<span>Bamboo Essence</span><span class="mq-sep">·</span>
+					<span>Abstract Flow</span><span class="mq-sep">·</span>
+					<span>GlowMist LED</span><span class="mq-sep">·</span>
+					<span>Ocean Shell</span><span class="mq-sep">·</span>
+					<span>EcoGlass Reborn</span><span class="mq-sep">·</span>
+					<span>VKMJ Studio</span><span class="mq-sep">·</span>
+				</div>
+			</div>
+
+			<section class="section">
+				<div class="sec-head">
+					<span class="eyebrow">Handpicked for You</span>
+					<h2 class="sec-title">Featured Collection</h2>
+				</div>
+				<div class="feat-grid" id="featuredGrid"></div>
+				<div style="text-align: center; margin-top: 44px">
+					<button class="btn-outline" onclick="showPage('shop')">
+						View Full Collection →
+					</button>
+				</div>
+			</section>
+
+			<div class="promise-strip">
+				<div class="promise-inner">
+					<div class="prom-item">
+						<h4>Authentic Craftsmanship</h4>
+						<p>Each piece is thoughtfully selected for quality &amp; beauty.</p>
+					</div>
+					<div class="prom-div"></div>
+					<div class="prom-item">
+						<h4>Free Delivery</h4>
+						<p>On all orders over ₱2,000 within the Philippines.</p>
+					</div>
+					<div class="prom-div"></div>
+					<div class="prom-item">
+						<h4>Eco-Friendly Options</h4>
+						<p>We carry sustainable &amp; recycled material vases.</p>
+					</div>
+					<div class="prom-div"></div>
+					<div class="prom-item">
+						<h4>Secure Checkout</h4>
+						<p>Easy, safe payment with order tracking built in.</p>
+					</div>
+				</div>
+			</div>
+
+			<section
+				class="section"
+				style="background: var(--cream-2); max-width: 100%; padding: 100px 40px"
+			>
+				<div
+					style="
+						max-width: 1360px;
+						margin: 0 auto;
+						display: grid;
+						grid-template-columns: 1fr 1fr;
+						gap: 90px;
+						align-items: center;
+					"
+				>
+					<div>
+						<span class="eyebrow">Limited Collection</span>
+						<h2 class="sec-title" style="margin-bottom: 20px">
+							The GlowMist<br />LED Vase
+						</h2>
+						<p style="font-size: 0.93rem; margin-bottom: 32px">
+							Transform any room into a calming sanctuary. The GlowMist creates
+							a soft ambient glow through its acrylic body — perfect for
+							bedrooms, cafés, and intimate spaces.
+						</p>
+						<button class="btn-primary" onclick="openProductModal(4)">
+							View Details
+						</button>
+					</div>
+					<div
+						style="
+							aspect-ratio: 1;
+							background: var(--cream-3);
+							border-radius: var(--r-lg);
+							overflow: hidden;
+							max-width: 440px;
+						"
+					>
+						<img
+							src="4.jpg"
+							alt="GlowMist"
+							style="width: 100%; height: 100%; object-fit: cover"
+							onerror="this.style.display = 'none'"
+						/>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<div id="page-shop" class="page">
+			<div class="inner-header" data-number="02">
+				<div class="ih-inner">
+					<span class="ih-tag">02 / Shop</span>
+					<h1>The Collection</h1>
+					<p>Six unique vases. Every piece tells a story.</p>
+				</div>
+			</div>
+
+			<div
+				style="
+					background: var(--cream-2);
+					border-bottom: 1px solid var(--border);
+					padding: 0 40px;
+					position: sticky;
+					top: var(--nav-h);
+					z-index: 50;
+				"
+			>
+				<div
+					style="
+						max-width: 1360px;
+						margin: 0 auto;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						flex-wrap: wrap;
+						gap: 12px;
+						padding: 14px 0;
+					"
+				>
+					<div style="display: flex; gap: 7px; flex-wrap: wrap" id="catFilters">
+						<button class="ftab active" onclick="setShopFilter('All', this)">
+							All
+						</button>
+						<button class="ftab" onclick="setShopFilter('Crystal Glass', this)">
+							Crystal
+						</button>
+						<button class="ftab" onclick="setShopFilter('Bamboo', this)">
+							Bamboo
+						</button>
+						<button class="ftab" onclick="setShopFilter('Ceramic', this)">
+							Ceramic
+						</button>
+						<button class="ftab" onclick="setShopFilter('Acrylic', this)">
+							LED / Acrylic
+						</button>
+						<button class="ftab" onclick="setShopFilter('Recycled', this)">
+							Eco / Recycled
+						</button>
+					</div>
+					<select
+						id="sortSel"
+						onchange="renderShop()"
+						style="
+							padding: 9px 16px;
+							background: var(--cream);
+							border: 1px solid var(--border);
+							border-radius: 60px;
+							font-family: &quot;Outfit&quot;, sans-serif;
+							font-size: 0.78rem;
+							color: var(--text-2);
+							outline: none;
+							cursor: pointer;
+						"
+					>
+						<option value="default">Sort: Default</option>
+						<option value="price-asc">Price: Low → High</option>
+						<option value="price-desc">Price: High → Low</option>
+						<option value="name">Name A–Z</option>
+					</select>
+				</div>
+			</div>
+			<div class="section" style="padding-top: 55px">
+				<div class="products-grid" id="shopGrid"></div>
+			</div>
+		</div>
+
+		<div id="page-about" class="page">
+			<div class="inner-header" data-number="03">
+				<div class="ih-inner">
+					<span class="ih-tag">03 / About</span>
+					<h1>Where Every Vase<br />Tells A Story</h1>
+					<p>Artistry meets everyday living.</p>
+				</div>
+			</div>
+
+			<div class="about-split">
+				<div class="as-img">
+					<img
+						src="images/about.jpg"
+						alt="VKMJ Studio"
+						onerror="this.parentElement.style.background = 'var(--cream-3)'"
+					/>
+				</div>
+				<div class="as-text">
+					<span class="eyebrow">Our Company</span>
+					<h2>More Than a<br /><em>Container</em></h2>
+					<p>
+						Welcome to VKMJ Studio, where artistry meets everyday living. We
+						specialize in curating and creating unique vases that transform
+						ordinary spaces into something meaningful and beautiful.
+					</p>
+					<p>
+						Each piece in our collection is thoughtfully designed to blend
+						style, function, and personality — whether it's a modern statement
+						vase, a nature-inspired piece, or a timeless classic.
+					</p>
+					<p>
+						Our mission is simple: to bring creativity and elegance into every
+						home. A vase is more than just a container — it's a piece of art
+						that tells a story.
+					</p>
+					<div class="as-stats">
+						<div class="ast">
+							<span class="ast-n">6</span
+							><span class="ast-l">Unique Vases</span>
+						</div>
+						<div class="ast">
+							<span class="ast-n">PH</span
+							><span class="ast-l">Philippines</span>
+						</div>
+						<div class="ast">
+							<span class="ast-n">100%</span
+							><span class="ast-l">Authentic</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section
+				class="section"
+				style="background: var(--cream-2); max-width: 100%; padding: 90px 40px"
+			>
+				<div style="max-width: 1360px; margin: 0 auto">
+					<div class="sec-head center">
+						<span class="eyebrow">Our Promise</span>
+						<h2 class="sec-title">What We Stand For</h2>
+					</div>
+					<div
+						style="
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+							gap: 3px;
+						"
+					>
+						<div
+							style="
+								background: var(--cream);
+								padding: 44px 36px;
+								border-top: 3px solid var(--sienna);
+							"
+						>
+							<div
+								style="
+									font-family: &quot;Playfair Display&quot;, serif;
+									font-size: 2.8rem;
+									font-weight: 900;
+									color: rgba(196, 98, 45, 0.18);
+									line-height: 1;
+									margin-bottom: 16px;
+								"
+							>
+								01
+							</div>
+							<h3 style="margin-bottom: 12px; font-size: 1.15rem">
+								Quality &amp; Craftsmanship
+							</h3>
+							<p style="font-size: 0.86rem">
+								From carefully selected materials to detailed finishing, every
+								vase we offer is made to last and to stand out.
+							</p>
+						</div>
+						<div
+							style="
+								background: var(--cream);
+								padding: 44px 36px;
+								border-top: 3px solid var(--rose);
+							"
+						>
+							<div
+								style="
+									font-family: &quot;Playfair Display&quot;, serif;
+									font-size: 2.8rem;
+									font-weight: 900;
+									color: rgba(181, 120, 92, 0.18);
+									line-height: 1;
+									margin-bottom: 16px;
+								"
+							>
+								02
+							</div>
+							<h3 style="margin-bottom: 12px; font-size: 1.15rem">
+								Innovation &amp; Sustainability
+							</h3>
+							<p style="font-size: 0.86rem">
+								We embrace eco-friendly options and trend-forward pieces —
+								including recycled glass and bamboo designs.
+							</p>
+						</div>
+						<div
+							style="
+								background: var(--cream);
+								padding: 44px 36px;
+								border-top: 3px solid var(--sand);
+							"
+						>
+							<div
+								style="
+									font-family: &quot;Playfair Display&quot;, serif;
+									font-size: 2.8rem;
+									font-weight: 900;
+									color: rgba(212, 184, 150, 0.4);
+									line-height: 1;
+									margin-bottom: 16px;
+								"
+							>
+								03
+							</div>
+							<h3 style="margin-bottom: 12px; font-size: 1.15rem">
+								Customer-First Always
+							</h3>
+							<p style="font-size: 0.86rem">
+								At the heart of our brand is a love for design and a commitment
+								to our customers — whether decorating your home or finding the
+								perfect gift.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div class="team-section">
+				<div class="sec-head">
+					<span class="eyebrow">Our Founders</span>
+					<h2 class="sec-title">The People Behind VKMJ</h2>
+				</div>
+				<div class="team-grid">
+					<div class="team-card">
+						<div class="tc-av">M</div>
+						<div class="tc-body">
+							<span class="tc-role">Chief Executive Officer</span>
+							<div class="tc-name">Mary Jane Bayno</div>
+							<p class="tc-bio">
+								Mary Jane leads VKMJ Studio with a strong vision for innovation
+								and design. As CEO, she oversees the overall direction of the
+								brand, ensuring that every product reflects quality, creativity,
+								and modern style. Her dedication to excellence drives the
+								company to continuously grow.
+							</p>
+						</div>
+					</div>
+					<div class="team-card">
+						<div class="tc-av">K</div>
+						<div class="tc-body">
+							<span class="tc-role">Administrator</span>
+							<div class="tc-name">Kate Winsky Sibomit</div>
+							<p class="tc-bio">
+								Kate plays a vital role in managing the day-to-day operations of
+								the business. As the Administrator, she ensures that everything
+								runs smoothly — from customer service to order management. Her
+								organization and commitment help deliver a seamless experience
+								for every customer.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section class="section">
+				<div class="sec-head">
+					<span class="eyebrow">Transparency</span>
+					<h2 class="sec-title">Our Suppliers</h2>
+				</div>
+				<div class="sup-table-wrap">
+					<table class="sup-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Supplier</th>
+								<th>Material Provided</th>
+								<th>Location</th>
+								<th>Certification</th>
+								<th>Lead Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>01</td>
+								<td>CrystalCraft PH</td>
+								<td>Crystal Glass</td>
+								<td>Pampanga, PH</td>
+								<td>ISO 9001</td>
+								<td>7 days</td>
+							</tr>
+							<tr>
+								<td>02</td>
+								<td>NaturaBamboo Co.</td>
+								<td>Bamboo</td>
+								<td>Cebu, PH</td>
+								<td>FSC Certified</td>
+								<td>5 days</td>
+							</tr>
+							<tr>
+								<td>03</td>
+								<td>ArtCeramic Studio</td>
+								<td>Ceramic</td>
+								<td>Cavite, PH</td>
+								<td>OEKO-TEX®</td>
+								<td>10 days</td>
+							</tr>
+							<tr>
+								<td>04</td>
+								<td>LumaTech Supplies</td>
+								<td>Acrylic + LED Components</td>
+								<td>Laguna, PH</td>
+								<td>SGS Verified</td>
+								<td>8 days</td>
+							</tr>
+							<tr>
+								<td>05</td>
+								<td>GreenGlass Reborn</td>
+								<td>Recycled Glass</td>
+								<td>Manila, PH</td>
+								<td>GRS Certified</td>
+								<td>6 days</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+
+		<div id="page-reviews" class="page">
+			<div class="inner-header" data-number="04">
+				<div class="ih-inner">
+					<span class="ih-tag">04 / Reviews</span>
+					<h1>What Our Customers Say</h1>
+					<p>Real stories from real homes.</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="reviews-grid" id="reviewsList"></div>
+				<div class="rf-wrap">
+					<h3 class="rf-title">Share Your Experience</h3>
+					<form class="rev-form" onsubmit="submitReview(event)">
+						<div class="form-row">
+							<div class="fg">
+								<label>Your Name</label
+								><input type="text" placeholder="Name" required id="revName" />
+							</div>
+							<div class="fg">
+								<label>Email</label
+								><input
+									type="email"
+									placeholder="your@email.com"
+									required
+									id="revEmail"
+								/>
+							</div>
+						</div>
+						<div class="fg">
+							<label>Rating</label>
+							<div class="star-row" id="starRow">
+								<span class="star" onclick="setRating(1)">★</span>
+								<span class="star" onclick="setRating(2)">★</span>
+								<span class="star" onclick="setRating(3)">★</span>
+								<span class="star" onclick="setRating(4)">★</span>
+								<span class="star" onclick="setRating(5)">★</span>
+							</div>
+						</div>
+						<div class="fg">
+							<label>Product Reviewed</label>
+							<select id="revProduct">
+								<option>Crystal Luxe Cut Vase</option>
+								<option>Bamboo Essence Vase</option>
+								<option>Abstract Flow Vase</option>
+								<option>GlowMist LED Vase</option>
+								<option>Ocean Shell Vase</option>
+								<option>EcoGlass Reborn Vase</option>
+							</select>
+						</div>
+						<div class="fg">
+							<label>Your Review</label
+							><textarea
+								rows="5"
+								placeholder="Tell us about your experience with this piece…"
+								required
+								id="revText"
+							></textarea>
+						</div>
+						<button type="submit" class="btn-primary">Submit Review →</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="page-contact" class="page">
+			<div class="inner-header" data-number="05">
+				<div class="ih-inner">
+					<span class="ih-tag">05 / Contact</span>
+					<h1>Get In Touch</h1>
+					<p>We'd love to hear from you.</p>
+				</div>
+			</div>
+			<div class="contact-layout">
+				<div class="cl-left">
+					<span class="eyebrow">Reach Us</span>
+					<h2>Let's Talk<br />Vases.</h2>
+					<div class="cl-details">
+						<div class="cl-item">
+							<span class="cl-icon">✉</span>
+							<div>
+								<span class="cl-label">Email</span
+								><span class="cl-val">hello@vkmjstudio.ph</span>
+							</div>
+						</div>
+						<div class="cl-item">
+							<span class="cl-icon">☎</span>
+							<div>
+								<span class="cl-label">Phone</span
+								><span class="cl-val">+63 905 167 1085</span>
+							</div>
+						</div>
+						<div class="cl-item">
+							<span class="cl-icon">⌖</span>
+							<div>
+								<span class="cl-label">Address</span
+								><span class="cl-val">Philippines</span>
+							</div>
+						</div>
+						<div class="cl-item">
+							<span class="cl-icon">◈</span>
+							<div>
+								<span class="cl-label">Follow Us</span>
+								<div class="soc-row">
+									<a href="#" class="soc-chip">Instagram</a>
+									<a href="#" class="soc-chip">Facebook</a>
+									<a href="#" class="soc-chip">TikTok</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="cl-right">
+					<div style="width: 100%; max-width: 500px">
+						<h3>Send a Message</h3>
+						<form class="contact-form" onsubmit="submitContact(event)">
+							<div class="form-row">
+								<div class="fg">
+									<label>Name</label
+									><input type="text" required placeholder="Your name" />
+								</div>
+								<div class="fg">
+									<label>Email</label
+									><input type="email" required placeholder="your@email.com" />
+								</div>
+							</div>
+							<div class="fg">
+								<label>Subject</label
+								><input type="text" required placeholder="What's this about?" />
+							</div>
+							<div class="fg">
+								<label>Message</label
+								><textarea
+									rows="5"
+									required
+									placeholder="Tell us what you need…"
+								></textarea>
+							</div>
+							<button type="submit" class="btn-primary">Send Message →</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="page-tracking" class="page">
+			<div class="inner-header" data-number="06">
+				<div class="ih-inner">
+					<span class="ih-tag">06 / Track</span>
+					<h1>Track Your Order</h1>
+					<p>Real-time updates on your VKMJ Studio order.</p>
+				</div>
+			</div>
+			<div class="track-section">
+				<div class="track-form">
+					<input
+						type="text"
+						id="trackInput"
+						placeholder="Enter your Order ID  e.g. VKMJ-1748291-523"
+					/>
+					<button class="btn-primary" onclick="trackOrder()">Track →</button>
+				</div>
+				<div id="trackResult" class="hidden"></div>
+			</div>
+		</div>
+
+		<div id="page-auth" class="page">
+			<div class="auth-page">
+				<div class="ap-visual">
+					<div class="ap-rings">
+						<div class="apr apr-1"></div>
+						<div class="apr apr-2"></div>
+						<div class="apr apr-3"></div>
+					</div>
+					<div class="ap-visual-content">
+						<h2>VKMJ<br /><em>Studio</em></h2>
+						<p>Where Every Vase Tells A Story</p>
+					</div>
+				</div>
+				<div class="ap-form-side">
+					<div class="auth-card">
+						<div class="auth-tabs">
+							<button class="auth-tab active" onclick="switchAuth('login')">
+								Sign In
+							</button>
+							<button class="auth-tab" onclick="switchAuth('register')">
+								Register
+							</button>
+						</div>
+						<div id="authLogin">
+							<h2>Welcome Back</h2>
+							<p class="auth-sub">Sign in to your VKMJ account</p>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Email</label
+								><input
+									type="email"
+									id="loginEmail"
+									placeholder="your@email.com"
+								/>
+							</div>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Password</label
+								><input type="password" id="loginPass" placeholder="••••••••" />
+							</div>
+							<button class="btn-primary full" onclick="doLogin()">
+								Sign In
+							</button>
+							<div class="auth-hint" style="margin-top: 18px">
+								<p>Admin: admin@vkmj.ph / admin123</p>
+								<p>Demo: user@vkmj.ph / user123</p>
+							</div>
+						</div>
+						<div id="authReg" class="hidden">
+							<h2>Create Account</h2>
+							<p class="auth-sub">Join the VKMJ Studio community</p>
+							<div class="form-row" style="margin-bottom: 0">
+								<div class="fg" style="margin-bottom: 14px">
+									<label>First Name</label
+									><input type="text" id="regFirst" placeholder="Mary Jane" />
+								</div>
+								<div class="fg" style="margin-bottom: 14px">
+									<label>Last Name</label
+									><input type="text" id="regLast" placeholder="Bayno" />
+								</div>
+							</div>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Email</label
+								><input
+									type="email"
+									id="regEmail"
+									placeholder="your@email.com"
+								/>
+							</div>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Phone</label
+								><input
+									type="text"
+									id="regPhone"
+									placeholder="+63 9xx xxx xxxx"
+								/>
+							</div>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Address</label
+								><input
+									type="text"
+									id="regAddr"
+									placeholder="Street, City, Province"
+								/>
+							</div>
+							<div class="fg" style="margin-bottom: 14px">
+								<label>Password</label
+								><input
+									type="password"
+									id="regPass"
+									placeholder="Create a password"
+								/>
+							</div>
+							<button class="btn-primary full" onclick="doRegister()">
+								Create Account
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="page-checkout" class="page">
+			<div class="inner-header" data-number="">
+				<div class="ih-inner">
+					<span class="ih-tag">— / Checkout</span>
+					<h1>Complete Your Order</h1>
+					<p>Almost there — review your basket and shipping details.</p>
+				</div>
+			</div>
+			<div class="checkout-layout">
+				<div class="co-form">
+					<h3>Shipping Details</h3>
+					<div class="form-row" style="margin-bottom: 0">
+						<div class="fg" style="margin-bottom: 14px">
+							<label>First Name</label
+							><input type="text" id="co-first" placeholder="Mary Jane" />
+						</div>
+						<div class="fg" style="margin-bottom: 14px">
+							<label>Last Name</label
+							><input type="text" id="co-last" placeholder="Bayno" />
+						</div>
+					</div>
+					<div class="fg" style="margin-bottom: 14px">
+						<label>Email</label
+						><input type="email" id="co-email" placeholder="your@email.com" />
+					</div>
+					<div class="fg" style="margin-bottom: 14px">
+						<label>Phone</label
+						><input type="text" id="co-phone" placeholder="+63 9xx xxx xxxx" />
+					</div>
+					<div class="fg" style="margin-bottom: 14px">
+						<label>Shipping Address</label
+						><input
+							type="text"
+							id="co-addr"
+							placeholder="Street, Barangay, City"
+						/>
+					</div>
+					<div class="form-row" style="margin-bottom: 0">
+						<div class="fg" style="margin-bottom: 22px">
+							<label>City</label
+							><input type="text" id="co-city" placeholder="Cebu City" />
+						</div>
+						<div class="fg" style="margin-bottom: 22px">
+							<label>Province</label
+							><input type="text" id="co-prov" placeholder="Cebu" />
+						</div>
+					</div>
+					<h3 style="margin-top: 10px">Payment Method</h3>
+					<div class="pay-opts" style="margin: 20px 0 28px">
+						<label class="pay-opt"
+							><input type="radio" name="pay" value="gcash" checked /><span
+								>GCash</span
+							></label
+						>
+						<label class="pay-opt"
+							><input type="radio" name="pay" value="cod" /><span
+								>Cash on Delivery</span
+							></label
+						>
+						<label class="pay-opt"
+							><input type="radio" name="pay" value="card" /><span
+								>Credit / Debit Card</span
+							></label
+						>
+					</div>
+					<button class="btn-primary full" onclick="placeOrder()">
+						Place Order →
+					</button>
+				</div>
+				<div class="co-summary">
+					<h3>Order Summary</h3>
+					<div id="coItems"></div>
+					<div class="co-total">
+						<div class="ct-row">
+							<span>Subtotal</span><span id="coSub">₱0</span>
+						</div>
+						<div class="ct-row"><span>Shipping</span><span>₱150</span></div>
+						<div class="ct-row total">
+							<span>Total</span><span id="coTotal">₱150</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="page-dashboard" class="page">
+			<div class="dash-layout">
+				<aside class="dash-sidebar">
+					<div class="ds-logo">VKMJ Studio</div>
+					<nav class="dash-nav">
+						<button
+							class="dn-btn active"
+							onclick="switchDash('overview', this)"
+						>
+							📋 Overview
+						</button>
+						<button class="dn-btn" onclick="switchDash('orders', this)">
+							📦 My Orders
+						</button>
+						<button class="dn-btn" onclick="switchDash('profile', this)">
+							👤 My Profile
+						</button>
+						<button class="dn-btn danger" onclick="doLogout()">
+							⎋ Sign Out
+						</button>
+					</nav>
+				</aside>
+				<main class="dash-main">
+					<div id="dash-overview">
+						<h2>My Dashboard</h2>
+						<div id="dashOverviewContent"></div>
+					</div>
+					<div id="dash-orders" class="hidden">
+						<h2>My Orders</h2>
+						<div id="dashOrdersContent"></div>
+					</div>
+					<div id="dash-profile" class="hidden">
+						<h2>My Profile</h2>
+						<div id="dashProfileContent"></div>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<div id="page-admin" class="page">
+			<div class="dash-layout">
+				<aside class="dash-sidebar">
+					<div class="ds-logo" style="color: var(--sienna-lt)">Admin Panel</div>
+					<nav class="dash-nav">
+						<button
+							class="dn-btn active"
+							onclick="switchAdmin('overview', this)"
+						>
+							📊 Overview
+						</button>
+						<button class="dn-btn" onclick="switchAdmin('orders', this)">
+							📦 All Orders
+						</button>
+						<button class="dn-btn" onclick="switchAdmin('inventory', this)">
+							🏺 Inventory
+						</button>
+						<button class="dn-btn" onclick="switchAdmin('users', this)">
+							👥 Users
+						</button>
+						<button class="dn-btn" onclick="switchAdmin('suppliers', this)">
+							🏭 Suppliers
+						</button>
+						<button class="dn-btn" onclick="switchAdmin('reports', this)">
+							📈 Reports
+						</button>
+						<button class="dn-btn danger" onclick="doLogout()">⎋ Logout</button>
+					</nav>
+				</aside>
+				<main class="dash-main">
+					<div id="admin-overview" class="admin-panel">
+						<h2>Dashboard Overview</h2>
+						<div id="adminOverviewContent"></div>
+					</div>
+					<div id="admin-orders" class="admin-panel hidden">
+						<h2>All Orders</h2>
+						<div id="adminOrdersContent"></div>
+					</div>
+					<div id="admin-inventory" class="admin-panel hidden">
+						<h2>Inventory</h2>
+						<div id="adminInventoryContent"></div>
+					</div>
+					<div id="admin-users" class="admin-panel hidden">
+						<h2>Users</h2>
+						<div id="adminUsersContent"></div>
+					</div>
+					<div id="admin-suppliers" class="admin-panel hidden">
+						<h2>Suppliers</h2>
+						<div class="tbl-wrap">
+							<table class="data-table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Supplier</th>
+										<th>Material</th>
+										<th>Location</th>
+										<th>Certification</th>
+										<th>Lead Time</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>01</td>
+										<td>CrystalCraft PH</td>
+										<td>Crystal Glass</td>
+										<td>Pampanga</td>
+										<td>ISO 9001</td>
+										<td>7 days</td>
+									</tr>
+									<tr>
+										<td>02</td>
+										<td>NaturaBamboo Co.</td>
+										<td>Bamboo</td>
+										<td>Cebu</td>
+										<td>FSC Certified</td>
+										<td>5 days</td>
+									</tr>
+									<tr>
+										<td>03</td>
+										<td>ArtCeramic Studio</td>
+										<td>Ceramic</td>
+										<td>Cavite</td>
+										<td>OEKO-TEX®</td>
+										<td>10 days</td>
+									</tr>
+									<tr>
+										<td>04</td>
+										<td>LumaTech Supplies</td>
+										<td>Acrylic + LED</td>
+										<td>Laguna</td>
+										<td>SGS Verified</td>
+										<td>8 days</td>
+									</tr>
+									<tr>
+										<td>05</td>
+										<td>GreenGlass Reborn</td>
+										<td>Recycled Glass</td>
+										<td>Manila</td>
+										<td>GRS Certified</td>
+										<td>6 days</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="admin-reports" class="admin-panel hidden">
+						<h2>Reports</h2>
+						<div id="adminReportsContent"></div>
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<footer class="footer">
+			<div class="footer-inner">
+				<div>
+					<div class="fl-logo">VKMJ<span> Studio</span></div>
+					<p class="fl-desc">
+						Where Every Vase Tells A Story. Thoughtfully curated vases for every
+						home, every style, every moment.
+					</p>
+				</div>
+				<div class="ft-col">
+					<h4>Navigate</h4>
+					<a href="#" onclick="showPage('home')">Home</a>
+					<a href="#" onclick="showPage('shop')">Shop</a>
+					<a href="#" onclick="showPage('about')">About</a>
+					<a href="#" onclick="showPage('reviews')">Reviews</a>
+					<a href="#" onclick="showPage('contact')">Contact</a>
+				</div>
+				<div class="ft-col">
+					<h4>Shop</h4>
+					<a
+						href="#"
+						onclick="
+							setShopFilter('Crystal Glass');
+							showPage('shop');
+						"
+						>Crystal Glass</a
+					>
+					<a
+						href="#"
+						onclick="
+							setShopFilter('Bamboo');
+							showPage('shop');
+						"
+						>Bamboo</a
+					>
+					<a
+						href="#"
+						onclick="
+							setShopFilter('Ceramic');
+							showPage('shop');
+						"
+						>Ceramic</a
+					>
+					<a
+						href="#"
+						onclick="
+							setShopFilter('Recycled');
+							showPage('shop');
+						"
+						>Eco / Recycled</a
+					>
+				</div>
+				<div class="ft-col">
+					<h4>Connect</h4>
+					<a href="#">Instagram</a>
+					<a href="#">Facebook</a>
+					<a href="#">TikTok</a>
+					<a href="#" onclick="showPage('tracking')">Track Order</a>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>© 2025 VKMJ Studio — Mary Jane Bayno &amp; Kate Winsky Sibomit</p>
+				<p>hello@vkmjstudio.ph · +63 905 167 1085</p>
+			</div>
+		</footer>
+
+		<script src="app.js"></script>
+	</body>
+</html>
